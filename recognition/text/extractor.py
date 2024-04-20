@@ -3,7 +3,7 @@ from natasha import DatesExtractor, MorphVocab
 import sqlite3
 # from deep_translator import GoogleTranslator
 
-connection = sqlite3.connect('../data/databases/train_database.sqlite')
+connection = sqlite3.connect('data/databases/train_database.sqlite')
 cursor = connection.cursor()
 stations = [''.join(x).split(' (')[0].lower() for x in cursor.execute('SELECT NAME FROM STATION').fetchall()]
 def extract_keyword(keywords, text):
