@@ -27,5 +27,5 @@ def index():
         data["lines"][line.name] = [station.name for station in sessions["train_database"].query(Station).filter_by(line_id=line.id).order_by(Station.name).all()]
     data["stations"] = [station.name for station in sessions["train_database"].query(Station).order_by(Station.name).all()]
 
-    return jsonify(**data, answer=answer)
-    #  return render_template("index.html", data=data, answer=answer)
+    # return jsonify(**data, answer=answer)
+    return render_template("index.html", data=data, answer=answer)

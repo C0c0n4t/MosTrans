@@ -6,11 +6,22 @@
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     </style>
-    <link rel="icon" href={{url_for('static', filename='mostrans_logo.svg') }} sizes="any" type="image/svg+xml">
-    <link rel="stylesheet" href={{url_for('static', filename='style.css') }}/>
+    <link rel="icon" href="../static/mostrans_logo.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="../static/style.css"/>
     <meta name="author" content=""/>
   </head>
   <body>
+    <!-- <script src="./index.js"></script> -->
+<script>
+const countButton = document.querySelectorAll('.count');
+const data = {{data|tojson}};
+        
+// используем метод addEventListener
+countButton.addEventListener('click', function() {
+    console.log(data);
+})
+
+</script>
     <div class="selector__box">
       <input class="date" placeholder="21.04.2024"></input>
       <div class="station">Станция</div>
@@ -20,27 +31,40 @@
       <div class="message_left">Привет, скажи, где я егй ли я</div>
       <div class="message_right">Привет, ты йге, особенно на Комсомольской</div>
       <div class="message_left">1Привет, скажи, где я егй ли я</div>
-      {% if answer %}
+      <!-- {% if answer %}
         <div class="answer">{{answer.count}}</div>
-      {% endif %}
+      {% endif %} -->
       <div class="answer">
     </div>
     <div>
       <p>Станция метро</p>
       <p><input type="search" list="lines" onChange="reset_lines">
         <datalist id="lines">
-        {% for line in data['lines'] %}
+        <!-- {% for line in data['lines'] %}
           <option value="{{ line }}"></option>
-        {% endfor %}
+        {% endfor %} -->
         </datalist>
       </p>
       <p><input type="search" list="stations" onChange="reset_lines">
         <datalist id="stations">
-        {% for station in data['stations'] %}
-          <option value="{{ station }}"></option>
-        {% endfor %}
+          <!-- <option value="{{ station }}"></option> -->
         </datalist>
       </p>
+        <script>
+          window.onload = function() {
+          var stations_opt=''; // variable to store the options
+          var lines_opt=''; // variable to store the options
+          for (var i=0; i < data['stations'].length;++i){
+            stations_opt += '<option value="'+data['stations'][i]+'" />'; // Storing options in variable
+          }
+          line_names = Object.keys(data["lines"]);
+          for (var i=0; i < line_names.length;++i){
+            lines_opt += '<option value="'+line_names[i]+'" />'; // Storing options in variable
+          }
+          document.getElementById("stations").innerHTML = stations_opt;
+          document.getElementById("lines").innerHTML = lines_opt
+        }
+        </script>
       <form id="text_form" method="GET" style="text-align: center;">
         <button type="submit" class="btn btn-primary">Predict</button>
       </form>

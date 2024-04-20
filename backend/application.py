@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 
 
 application = Flask(__name__, template_folder="../frontend/templates", static_folder="../frontend/static")
