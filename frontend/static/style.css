@@ -28,6 +28,7 @@ body {
   flex-direction: row;
   justify-content: space-around;
 
+  color: white;
   background-color: var(--theme-black);
 
   font-size: 2.5vh;
@@ -47,7 +48,9 @@ body {
   background-color: var(--theme-black);
 }
 
-.sub_but {
+.sub_but[list] {
+  all: unset;
+
   width: 22%;
 
   border-radius: 1vh;
@@ -60,6 +63,8 @@ body {
 }
 
 .count {
+  all: unset;
+
   width: 25%;
   
   border-radius: 1vh;
@@ -71,6 +76,13 @@ body {
 
   color: #d9232e;
   background-color: var(--theme-black);
+}
+.count:hover {
+  background-color: rgb(43, 37, 37);
+}
+.count:active {
+  box-shadow: 0 2% #666;
+  transform: translateY(2%);
 }
 
 .chat__box {
