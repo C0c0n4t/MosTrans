@@ -13,25 +13,20 @@
   <body>
     <!-- <script src="./index.js"></script> -->
     <script>
-    const countButton = document.querySelectorAll('.count');
     const data = {{data|tojson}};
-            
-    // используем метод addEventListener
-    countButton.addEventListener('click', function() {
-        console.log(data);
-    })
-
     </script>
-    <div class="selector__box">
-      <input class="date" placeholder="21.04.2024"></input>
-      
-      <input placeholder="Линия" type="search" list="lines" class="sub_but">
-      <datalist id="lines"></datalist>
-      
-      <input placeholder="Станция" type="search" list="stations" class="sub_but">
-      <datalist id="stations"></datalist>
-      <button type="submit" method="GET" class="count">Считать</button>
-
+    <div>
+      <!-- <input class="date" placeholder="21.04.2024"></input> -->
+      <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
+        <input type="date" class="date" name="date" value="2024-04-20" min="2024-01-01" max="2024-04-03" />
+        
+        <input placeholder="Линия" type="search" list="lines" class="sub_but">
+        <datalist id="lines"></datalist>
+        
+        <input placeholder="Станция" name="station_name" type="search" list="stations" class="sub_but">
+        <datalist id="stations"></datalist>
+        <button type="submit" formmethod="get" class="count">Считать</button>
+      </form>
       <script>
         window.onload = function() {
         var stations_opt=''; // variable to store the options
@@ -83,9 +78,9 @@
       <div class="answer">{{answer}}</div>
       {% endif %}
     </div>
-    <div class="input__box">
-      <input class="input__field" placeholder="Напишите ваш вопрос">
-      <div class="send"></div>
-    </div>
+    <form class="input__box" action="#" method="get" enctype="multipart/form-data">
+      <input class="input__field" name="text" placeholder="Напишите ваш вопрос">
+      <button type="submit" class="send" formmethod="get"></div>
+    </form>
   </body>
 </html>
