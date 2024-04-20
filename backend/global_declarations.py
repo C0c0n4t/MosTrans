@@ -1,16 +1,24 @@
 from typing import *
 
 # database
-db_files = [r"..\data\databases\main_database.sqlite", r"..\data\databases\train_database.sqlite"]
+db_files = [r"data\databases\main_database.sqlite", r"data\databases\train_database.sqlite"]
 
-from data import db_session
-db_session.global_init(db_files)
-from data.db_session import sessions
-from data.models import *
+
+def db_init():
+    """Initializes all databases"""
+    from data import db_session
+    db_session.global_init(db_files)
+
+    from data.models import load_models
+    load_models()
+
 
 def parse_xlsx():
     """Parses xlsx file into `train_database`"""
     import pandas as pd
+
+    from data.db_session import sessions
+    from data.models import Line, Station, PassengerFlow
 
     dataframe = pd.read_excel(r"..\data\databases\dataset.xlsx")
 
