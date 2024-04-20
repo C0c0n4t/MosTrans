@@ -11,10 +11,15 @@ def index():
     from data.models import Line, Station, PassengerFlow
 
     date = request.args.get('date')
-    station_id = request.args.get('station_id')
-    answer = sessions["train_database"].query(PassengerFlow).filter_by(station_id=station_id, ymd=date).first()
-    if answer is not None:
-        answer = answer.count
+    station_name = request.args.get('station_name')
+
+    station = sessions["train_database"].query(Station).filter_by(name=station_name).first()
+    if station is not None:
+        answer = sessions["train_database"].query(PassengerFlow).filter_by(station_id=station.id, ymd=date).first()
+        if answer is not None:
+            answer = answer.count
+    else:
+        answer = None
 
     data = dict()
     data["lines"] = dict()
