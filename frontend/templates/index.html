@@ -24,8 +24,35 @@ countButton.addEventListener('click', function() {
 </script>
     <div class="selector__box">
       <input class="date" placeholder="21.04.2024"></input>
-      <div class="station">Станция</div>
-      <div class="count">Посчитать</div>
+      <input type="search" list="lines" onChange="reset_lines" class="sub_but">
+        <datalist id="lines">
+          Линия
+        </datalist>
+      </input>
+      <input type="search" list="stations" onChange="reset_lines" class="sub_but">
+        <datalist id="stations">
+          Станция
+        </datalist>
+      </input>
+      <form id="text_form" method="GET" class="count">
+        <button type="submit" class="btn btn-primary">Predict</button>
+      </form>
+
+      <script>
+        window.onload = function() {
+        var stations_opt=''; // variable to store the options
+        var lines_opt=''; // variable to store the options
+        for (var i=0; i < data['stations'].length;++i){
+          stations_opt += '<option value="'+data['stations'][i]+'" />'; // Storing options in variable
+        }
+        line_names = Object.keys(data["lines"]);
+        for (var i=0; i < line_names.length;++i){
+          lines_opt += '<option value="'+line_names[i]+'" />'; // Storing options in variable
+        }
+        document.getElementById("stations").innerHTML = stations_opt;
+        document.getElementById("lines").innerHTML = lines_opt
+      }
+      </script>
     </div>
     <div class="chat__box">
       <div class="message_left">Привет, скажи, где я егй ли я</div>
@@ -34,42 +61,8 @@ countButton.addEventListener('click', function() {
       <!-- {% if answer %}
         <div class="answer">{{answer.count}}</div>
       {% endif %} -->
-      <div class="answer">
+      <!-- <div class="answer"> -->
     </div>
-    <div>
-      <p>Станция метро</p>
-      <p><input type="search" list="lines" onChange="reset_lines">
-        <datalist id="lines">
-        <!-- {% for line in data['lines'] %}
-          <option value="{{ line }}"></option>
-        {% endfor %} -->
-        </datalist>
-      </p>
-      <p><input type="search" list="stations" onChange="reset_lines">
-        <datalist id="stations">
-          <!-- <option value="{{ station }}"></option> -->
-        </datalist>
-      </p>
-        <script>
-          window.onload = function() {
-          var stations_opt=''; // variable to store the options
-          var lines_opt=''; // variable to store the options
-          for (var i=0; i < data['stations'].length;++i){
-            stations_opt += '<option value="'+data['stations'][i]+'" />'; // Storing options in variable
-          }
-          line_names = Object.keys(data["lines"]);
-          for (var i=0; i < line_names.length;++i){
-            lines_opt += '<option value="'+line_names[i]+'" />'; // Storing options in variable
-          }
-          document.getElementById("stations").innerHTML = stations_opt;
-          document.getElementById("lines").innerHTML = lines_opt
-        }
-        </script>
-      <form id="text_form" method="GET" style="text-align: center;">
-        <button type="submit" class="btn btn-primary">Predict</button>
-      </form>
-    </div>
-
     <div class="input__box">
       <input class="input__field" placeholder="Напишите ваш вопрос">
       <div class="send"></div>
