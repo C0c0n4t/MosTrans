@@ -20,6 +20,15 @@ def extract_station(text):
         
     return min_distance_station
 
+morph_vocab = MorphVocab()
+dates_extractor = DatesExtractor(morph_vocab)
+def extract_date(text):
+    date = list(dates_extractor(text))
+    fact = date[0].__getattribute__("fact")
+    return (fact.__getattribute__("day"), fact.__getattribute__("month"), fact.__getattribute__("year"))
+
+
 if __name__ == "__main__":
-    text = 'Вчера я провел целый день, исследуя красоту мозаик на станции майяковская.'
+    text = '21 апреля я провел целый день, исследуя красоту мозаик на станции майяковская.'
     print(extract_station(text))
+    print(extract_date(text))
