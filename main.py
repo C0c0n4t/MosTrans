@@ -1,7 +1,6 @@
 # Imports
 import sys
 
-import data.models
 from backend.global_declarations import *
 from backend.routes import *
 

@@ -75,12 +75,15 @@
       <div class="message_right">Привет, ты йге, особенно на Комсомольской</div>
       <div class="message_left">1Привет, скажи, где я егй ли я</div>
       {% if answer %}
-      <div class="answer">{{answer}}</div>
+        <div class="answer">На {{date}} на станции {{station}} зафиксирован следующий пассажиропоток: {{answer}}</div>
+        {% if unresolved_line %}
+          Нам не удалось определить точную линию, на которой расположена станция. Надеемся, что мы угадали!
+        {% endif %}
       {% endif %}
     </div>
     <form class="input__box" action="#" method="get" enctype="multipart/form-data">
       <input class="input__field" name="text" placeholder="Напишите ваш вопрос">
-      <button type="submit" class="send" formmethod="get"></div>
+      <button type="submit" class="send" formmethod="get"></button>
     </form>
   </body>
 </html>
