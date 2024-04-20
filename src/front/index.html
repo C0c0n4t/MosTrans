@@ -6,17 +6,29 @@
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     </style>
+    <script>
+      const tx = document.getElementsByTagName("input");
+      for (let i = 0; i < tx.length; i++) {
+        tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+        tx[i].addEventListener("input", OnInput, false);
+      }
+
+      function OnInput() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + "px";
+      }
+    </script>
     <link rel="icon" href="../data/mostrans_logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css"/>
     <meta name="author" content="" />
   </head>
   <body>
-    <div class="messages">
-      <p>eeeh</p>
+    <div class="chat__box">
+      <div class="message">eeeh</div>
     </div>
     <div class="input__box">
       <input class="input__field" placeholder="Напишите ваш вопрос"></input>
-      <img class="send"/>
+      <svg class="send" xmlns="../data/send.svg"></svg>
     </div>
   </body>
 </html>
