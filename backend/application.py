@@ -1,0 +1,12 @@
+from backend.global_declarations import *
+
+from flask import Flask
+
+
+application = Flask(__name__, template_folder="../frontend/templates")
+application.config["SECRET_KEY"] = "MosTrans"
+
+
+def run(port: int = 8080, host: str = "127.0.0.1"):
+    """Runs application on 'http://{host}:{port}/'"""
+    application.run(port=port, host=host)
