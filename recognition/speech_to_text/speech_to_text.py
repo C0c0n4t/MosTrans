@@ -1,10 +1,11 @@
-from huggingsound import SpeechRecognitionModel
 from autocorrect import Speller
 
-model = SpeechRecognitionModel("jonatasgrosman/wav2vec2-large-xlsr-53-russian")
-audio_paths = ["me.wav"]
 
-transcriptions = model.transcribe(audio_paths)
+def convert_speech(audio_path):
+    """Converts file with `audio_path` name to string and autocorrects misspelling"""
+    from backend.global_declarations import model
 
-spell = Speller('ru')
-print(spell(transcriptions[0]["transcription"]))
+    transcriptions = model.transcribe([audio_path])
+
+    spell = Speller('ru')
+    return spell(transcriptions[0]["transcription"])
