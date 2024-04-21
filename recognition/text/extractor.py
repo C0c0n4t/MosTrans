@@ -76,7 +76,9 @@ def extract_date(text, preset=date_preset, fmt="ymd"):
     sentinel = object()
     try_next = next(search, sentinel)
     if try_next is sentinel:
-        return datetime.now().isoformat().split("-")
+        print("sentinel")
+        print()
+        return "-".join(datetime.now().isoformat()[:10].split("-"))
     search = try_next
 
     if search.string[4] == "-":
