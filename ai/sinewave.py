@@ -24,6 +24,8 @@ class SinModel:
 
     def error(self, x_test, y_test):
         assert len(x_test) == len(y_test)
+        if len(x_test) == 0:
+            return 0
         loss = 0
         for x, y in zip(x_test, y_test):
             loss += abs(y - self.predict(x)) / y
