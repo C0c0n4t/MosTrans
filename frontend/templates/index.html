@@ -18,11 +18,21 @@
     </script>
     <div class="main_screen">
       <div class="answer_container">
-        <div class="answer">18760</div>
-        <div class="additional_info">пассажиропоток на станции Каховская 13.03.2024</div>
-        <!-- {% if answer %}
-        <div class="answer">{{answer}}</div>
-        {% endif %} -->
+        <!-- <div class="answer">18760</div>
+        <div class="additional_info">пассажиропоток на станции Каховская 13.03.2024</div> -->
+        {% if answer %}
+          <div class="answer">{{answer}}</div>
+          <div class="additional_info">Пассажиропоток на станции {{station}} для даты {{date}}</div>
+          <!-- <div class="answer">{{answer}}</div> -->
+        {% if unresolved_line %}
+          <div class="additional_info">
+            Нам не удалось определить точную линию, на которой расположена станция. Надеемся, что мы угадали!
+          </div>
+        {% endif %}
+        {% else %}
+          <div class="answer" style="font-size: 5rem;">Выберите станцию и дату</div>
+          <div class="additional_info">Также вы можете сделать текстовый запрос</div>
+        {% endif %}
         <!-- <input class="date" placeholder="21.04.2024"></input> -->
       </div>
       <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
@@ -33,7 +43,7 @@
             
             <input placeholder="Станция" name="station_name" type="search" list="stations" class="sub_but">
             <datalist id="stations"></datalist>
-            <input type="date" class="date" name="date" value="2024-03-02" min="2024-01-01" max="2024-04-03" />
+            <input type="date" class="date" name="date" value="2024-03-02"/>
         <button type="submit" formmethod="get" class="count">Считать</button>
           </div>
           <!-- <form class="input__box" action="#" method="get" enctype="multipart/form-data"> -->
@@ -140,12 +150,12 @@
       }
     </script>
 </div>
-{% if answer %}
+<!-- {% if answer %}
 <div class="answer">Для даты {{date}} на станции {{station}} был зафиксирован следующий пассажиропоток: {{answer}}</div>
 {% if unresolved_line %}
 Нам не удалось определить точную линию, на которой расположена станция. Надеемся, что мы угадали!
 {% endif %}
-{% endif %}
+{% endif %} -->
 <!-- <form class="input__box" action="#" method="get" enctype="multipart/form-data">
     <input id="text_field" class="input__field" name="text"
            placeholder="Напишите ваш запрос по поводу пассажиропотока. Не забудьте упомянуть станцию и дату!">

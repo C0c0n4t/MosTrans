@@ -1,8 +1,18 @@
+@import url(https://db.onlinewebfonts.com/c/1f110cb098263ea5a2e170384df65753?family=Moscow+Sans);
+
 :root {
-  /* --theme-black: #3a3a3a; */
+  --theme-black-old: #3a3a3a;
   --theme-black: white;
   --theme-purple: #704EF1;
-  --chakra-fonts-body: MoscowSans,sans-serif;
+  --chakra-fonts-body: 'Moscow Sans';
+}
+
+::-webkit-input-placeholder {
+  color: #757575;
+}
+::placeholder {
+  color: #757575;
+}
 }
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -17,11 +27,11 @@ body {
   display: flex;
   flex-direction: column;
 
-  font-family: 'Montserrat';
+  font-family: var(--chakra-fonts-body);
   overflow: hidden;
 
   /* background-color: rgb(62,58,130); */
-  background: linear-gradient(180deg, rgba(62,58,130,1) 0%, rgba(112,78,241,1) 19%, rgba(255,255,255,1) 100%);
+  /* background:  linear-gradient(180deg, rgba(58,58,58,1) 32%, rgba(112,78,241,1) 64%, rgba(255,255,255,1) 100%); */
 }
 
 .sub__form {
@@ -54,10 +64,10 @@ body {
   vertical-align: middle;
   line-height: inherit; 
   display: table-cell;
+  color: var(--theme-black-old);
 
   padding: 2vh 0 0 0;
 
-  color: white;
   background-color: var(--theme-black);
 }
 
@@ -71,8 +81,12 @@ body {
   text-align: center;
   padding: 0.75vh 0 0.75vh 0;
 
-  color: white;
+  color: var(--theme-black-old);
   background-color: var(--theme-black);
+}
+
+textarea:focus, .sub_but:focus {
+  color: var(--theme-black-old);
 }
 
 .info_container {
@@ -166,7 +180,8 @@ body {
   overflow-x: hidden;
 
   /* background-color: white; */
-  background: linear-gradient(0deg, rgba(62,58,130,1) 0%, rgba(112,78,241,1) 10%, rgba(255,255,255,1) 87%);;
+  /* background: linear-gradient(0deg, rgba(62,58,130,1) 0%, rgba(112,78,241,1) 10%, rgba(255,255,255,1) 87%);; */
+  background: linear-gradient(180deg, rgba(14,14,14,1) 20%, rgba(112,78,241,1) 56%, rgba(255,255,255,1) 100%);
 }
 
 .answer_container {
@@ -184,7 +199,9 @@ body {
   font-family: var(--chakra-fonts-body);
   font-weight: bolder;
   font-size: 10rem;
+  text-align: center;
   animation: 4s anim-pop-up ease-out;
+  color: white;
   animation-iteration-count: 1;
 }
 @keyframes anim-pop-up {
@@ -209,7 +226,8 @@ body {
   font-family: var(--chakra-fonts-body);
   white-space: initial;
   text-align: center;
-  width: 27vh;
+  width: 50vh;
+  color:white;
   font-size: 3rem;
   animation: 5s anim-pop-up ease-out forwards;
   animation-delay: 1s;
@@ -281,16 +299,17 @@ body {
   font-family: inherit;
   border: 0;
   outline: 0;
-  border-bottom: .3vh solid var(--theme-black);
+  /* border-bottom: .3vh solid var(--theme-black); */
 
   font-size: 3vh;
-  color: var(--theme-black);
+  text-align: right;
+  color: var(--theme-black-old);
   background: transparent;
   transition: border-color 0.2s;
 
-  &::placeholder {
+  /* &::placeholder {
     color: var(--theme-black);
-  }
+  } */
 }
 
 .send {
@@ -315,4 +334,3 @@ body {
 .input__box {
   flex-direction: row;
 }
-
