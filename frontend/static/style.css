@@ -334,3 +334,16 @@ textarea:focus, .sub_but:focus {
 .input__box {
   flex-direction: row;
 }
+
+.microphone_button {
+  margin-inline: 1%;
+  margin-top: .4vh;
+  width: 5vh;
+  border: 0;
+
+  aspect-ratio: 1/1;
+  background: none;
+  background-image: url('../static/micro.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}

@@ -14,141 +14,155 @@
 <body>
 <!-- <script src="./index.js"></script> -->
 <script>
-    const data = {{data|tojson}};
-    </script>
-    <div class="main_screen">
-      <div class="answer_container">
-        <!-- <div class="answer">18760</div>
-        <div class="additional_info">пассажиропоток на станции Каховская 13.03.2024</div> -->
-        {% if answer %}
-          <div class="answer">{{answer}}</div>
-          <div class="additional_info">Пассажиропоток на станции {{station}} для даты {{date}}</div>
-          <!-- <div class="answer">{{answer}}</div> -->
-        {% if unresolved_line %}
-          <div class="additional_info">
-            Нам не удалось определить точную линию, на которой расположена станция. Надеемся, что мы угадали!
-          </div>
-        {% endif %}
-        {% else %}
-          <div class="answer" style="font-size: 5rem;">Выберите станцию и дату</div>
-          <div class="additional_info">Также вы можете сделать текстовый запрос</div>
-        {% endif %}
-        <!-- <input class="date" placeholder="21.04.2024"></input> -->
-      </div>
-      <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
-        <div class="info_container">
-          <div class="stations_lines_date_container">
-            <input placeholder="Линия" type="search" list="lines" class="sub_but">
-            <datalist id="lines"></datalist>
-            
-            <input placeholder="Станция" name="station_name" type="search" list="stations" class="sub_but">
-            <datalist id="stations"></datalist>
-            <input type="date" class="date" name="date" value="2024-03-02"/>
-        <button type="submit" formmethod="get" class="count">Считать</button>
-          </div>
-          <!-- <form class="input__box" action="#" method="get" enctype="multipart/form-data"> -->
-          <div class="input__box">
-            <input id="text_field" class="input__field" name="text" placeholder="Напишите ваш запрос по поводу пассажиропотока. Не забудьте упомянуть станцию и дату!">
-            <button type="submit" class="send" formmethod="get"></button>
-          </div>
-          <!-- </form> -->
+  const data = {{data|tojson}};
+</script>
+  <div class="main_screen">
+    <div class="answer_container">
+      <!-- <div class="answer">18760</div>
+      <div class="additional_info">пассажиропоток на станции Каховская 13.03.2024</div> -->
+      {% if answer %}
+        <div class="answer">{{answer}}</div>
+        <div class="additional_info">Пассажиропоток на станции {{station}} для даты {{date}}</div>
+        <!-- <div class="answer">{{answer}}</div> -->
+      {% if unresolved_line %}
+        <div class="additional_info">
+          Нам не удалось определить точную линию, на которой расположена станция. Надеемся, что мы угадали!
         </div>
-      </form>
-      <script>
-        const _C = document.querySelector('.info_container'), 
-        N = _C.children.length;
-
-        let i = 0, x0 = null, locked = false, w;
-
-        function unify(e) {	return e.changedTouches ? e.changedTouches[0] : e };
-
-        function lock(e) {
-          x0 = unify(e).clientX;
-          _C.classList.toggle('smooth', !(locked = true))
-        };
-
-        function drag(e) {
-          e.preventDefault();
+      {% endif %}
+      {% else %}
+        <div class="answer" style="font-size: 5rem;">Выберите станцию и дату</div>
+        <div class="additional_info">Также вы можете сделать текстовый запрос</div>
+      {% endif %}
+      <!-- <input class="date" placeholder="21.04.2024"></input> -->
+    </div>
+    <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
+      <div class="info_container">
+        <div class="stations_lines_date_container">
+          <input placeholder="Линия" type="search" list="lines" class="sub_but">
+          <datalist id="lines"></datalist>
           
-          if(locked) 		
-            _C.style.setProperty('--tx', `${Math.round(unify(e).clientX - x0)}px`)
-        };
-
-        function move(e) {
-          if(locked) {
-            let dx = unify(e).clientX - x0, s = Math.sign(dx), 
-                f = +(s*dx/w).toFixed(2);
-
-            if((i > 0 || s < 0) && (i < N - 1 || s > 0) && f > .2) {
-              _C.style.setProperty('--i', i -= s);
-              f = 1 - f
-            }
-            
-            _C.style.setProperty('--tx', '0px');
-            _C.style.setProperty('--f', f);
-            _C.classList.toggle('smooth', !(locked = false));
-            x0 = null
-          }
-        };
-
-        function size() { w = window.innerWidth };
-
-        size();
-        _C.style.setProperty('--n', N);
-
-        addEventListener('resize', size, false);
-
-        _C.addEventListener('mousedown', lock, false);
-        _C.addEventListener('touchstart', lock, false);
-
-        _C.addEventListener('mousemove', drag, false);
-        _C.addEventListener('touchmove', drag, false);
-
-        _C.addEventListener('mouseup', move, false);
-        _C.addEventListener('touchend', move, false);
-      </script>
-      <script>
-        window.onload = function() {
-        var stations_opt=''; // variable to store the options
-        var lines_opt=''; // variable to store the options
-
-        for (var i=0; i < data['stations'].length;++i) {
-          stations_opt += '<option value="'+data['stations'][i]+'" />'; // Storing options in variable
-        }
-
-        line_names = Object.keys(data["lines"]);
-        for (var i=0; i < line_names.length;++i) {
-          lines_opt += '<option value="'+line_names[i]+'" />'; // Storing options in variable
-        }
-        document.getElementById("lines").innerHTML = lines_opt;
-        document.getElementById("stations").innerHTML = stations_opt;
-
-        document.getElementsByClassName("sub_but")[0].onchange = (event) => {
-          input = event.target.value;
-          is_in = () => {
-            for (var key in data['lines']) {
-              if (input == key) {
-                return true;
+          <input placeholder="Станция" name="station_name" type="search" list="stations" class="sub_but">
+          <datalist id="stations"></datalist>
+          <input type="date" class="date" name="date" value="2024-03-02"/>
+      <button type="submit" formmethod="get" class="count">Считать</button>
+        </div>
+        <!-- <form class="input__box" action="#" method="get" enctype="multipart/form-data"> -->
+        <div class="input__box">
+          <input id="text_field" class="input__field" name="text" placeholder="Напишите ваш запрос по поводу пассажиропотока. Не забудьте упомянуть станцию и дату!">
+          <button class="microphone_button"></button>
+          <script>
+            micro_pressed = false;
+            micro_button = document.getElementsByClassName("microphone_button")[0]; 
+            micro_button.setAttribute("pressed") = micro_pressed;
+            micro_button.onclick = (el) => {
+              if (el.getAttribute("pressed") === false) {
+                document.getElementsByClassName("start-voice")[0].click();
+              }
+              else {
+                document.getElementsByClassName("stop-voice")[0].click();
               }
             }
-            return false;
+          </script>
+          <button type="submit" class="send" formmethod="get"></button>
+        </div>
+        <!-- </form> -->
+      </div>
+    </form>
+    <script>
+      const _C = document.querySelector('.info_container'), 
+      N = _C.children.length;
+
+      let i = 0, x0 = null, locked = false, w;
+
+      function unify(e) {	return e.changedTouches ? e.changedTouches[0] : e };
+
+      function lock(e) {
+        x0 = unify(e).clientX;
+        _C.classList.toggle('smooth', !(locked = true))
+      };
+
+      function drag(e) {
+        e.preventDefault();
+        
+        if(locked) 		
+          _C.style.setProperty('--tx', `${Math.round(unify(e).clientX - x0)}px`)
+      };
+
+      function move(e) {
+        if(locked) {
+          let dx = unify(e).clientX - x0, s = Math.sign(dx), 
+              f = +(s*dx/w).toFixed(2);
+
+          if((i > 0 || s < 0) && (i < N - 1 || s > 0) && f > .2) {
+            _C.style.setProperty('--i', i -= s);
+            f = 1 - f
           }
-          if (is_in()) {
-            stations_opt = [];
-            input_stations = data['lines'][input];
-            for (var key in input_stations) {
-              stations_opt += '<option value="'+input_stations[key]+'" />'; // Storing options in variable
-            }
-          }
-          else {
-            for (var i=0; i < data['stations'].length;++i) {
-              stations_opt += '<option value="'+data['stations'][i]+'" />'; // Storing options in variable
-            }
-          }
-          document.getElementById("stations").innerHTML = stations_opt;
+          
+          _C.style.setProperty('--tx', '0px');
+          _C.style.setProperty('--f', f);
+          _C.classList.toggle('smooth', !(locked = false));
+          x0 = null
         }
-      }
+      };
+
+      function size() { w = window.innerWidth };
+
+      size();
+      _C.style.setProperty('--n', N);
+
+      addEventListener('resize', size, false);
+
+      _C.addEventListener('mousedown', lock, false);
+      _C.addEventListener('touchstart', lock, false);
+
+      _C.addEventListener('mousemove', drag, false);
+      _C.addEventListener('touchmove', drag, false);
+
+      _C.addEventListener('mouseup', move, false);
+      _C.addEventListener('touchend', move, false);
     </script>
+    <script>
+      window.onload = function() {
+      var stations_opt=''; // variable to store the options
+      var lines_opt=''; // variable to store the options
+
+      for (var i=0; i < data['stations'].length;++i) {
+        stations_opt += '<option value="'+data['stations'][i]+'" />'; // Storing options in variable
+      }
+
+      line_names = Object.keys(data["lines"]);
+      for (var i=0; i < line_names.length;++i) {
+        lines_opt += '<option value="'+line_names[i]+'" />'; // Storing options in variable
+      }
+      document.getElementById("lines").innerHTML = lines_opt;
+      document.getElementById("stations").innerHTML = stations_opt;
+
+      document.getElementsByClassName("sub_but")[0].onchange = (event) => {
+        input = event.target.value;
+        is_in = () => {
+          for (var key in data['lines']) {
+            if (input == key) {
+              return true;
+            }
+          }
+          return false;
+        }
+        if (is_in()) {
+          stations_opt = [];
+          input_stations = data['lines'][input];
+          for (var key in input_stations) {
+            stations_opt += '<option value="'+input_stations[key]+'" />'; // Storing options in variable
+          }
+        }
+        else {
+          for (var i=0; i < data['stations'].length;++i) {
+            stations_opt += '<option value="'+data['stations'][i]+'" />'; // Storing options in variable
+          }
+        }
+        document.getElementById("stations").innerHTML = stations_opt;
+      }
+    }
+  </script>
 </div>
 <!-- {% if answer %}
 <div class="answer">Для даты {{date}} на станции {{station}} был зафиксирован следующий пассажиропоток: {{answer}}</div>
