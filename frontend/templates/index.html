@@ -1,33 +1,33 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <title>MosTrans</title>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     </style>
     <link rel="icon" href="../static/mostrans_logo.svg" sizes="any" type="image/svg+xml">
     <link rel="stylesheet" href="../static/style.css"/>
     <meta name="author" content=""/>
-  </head>
-  <body>
-    <!-- <script src="./index.js"></script> -->
-    <script>
+</head>
+<body>
+<!-- <script src="./index.js"></script> -->
+<script>
     const data = {{data|tojson}};
-    </script>
-    <div>
-      <!-- <input class="date" placeholder="21.04.2024"></input> -->
-      <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
-        <input type="date" class="date" name="date" value="2024-04-20" min="2024-01-01" max="2024-04-03" />
-        
+</script>
+<div>
+    <!-- <input class="date" placeholder="21.04.2024"></input> -->
+    <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
+        <input type="date" class="date" name="date" value="2024-04-20" min="2024-01-01" max="2024-04-03"/>
+
         <input placeholder="Линия" type="search" list="lines" class="sub_but">
         <datalist id="lines"></datalist>
-        
+
         <input placeholder="Станция" name="station_name" type="search" list="stations" class="sub_but">
         <datalist id="stations"></datalist>
         <button type="submit" formmethod="get" class="count">Считать</button>
-      </form>
-      <script>
+    </form>
+    <script>
         window.onload = function() {
         var stations_opt=''; // variable to store the options
         var lines_opt=''; // variable to store the options
@@ -68,24 +68,25 @@
           document.getElementById("stations").innerHTML = stations_opt;
         }
       }
-      </script>
-    </div>
-    {% if answer %}
-      <div class="answer">Для даты {{date}} на станции {{station}} был зафиксирован следующий пассажиропоток: {{answer}}</div>
-      {% if unresolved_line %}
-        Нам не удалось определить точную линию, на которой расположена станция. Надеемся, что мы угадали!
-      {% endif %}
-    {% endif %}
-    <form class="input__box" action="#" method="get" enctype="multipart/form-data">
-      <input id="text_field" class="input__field" name="text" placeholder="Напишите ваш запрос по поводу пассажиропотока. Не забудьте упомянуть станцию и дату!">
-      <button id="text_button" type="submit" class="send" formmethod="get"></button>
-    </form>
+    </script>
+</div>
+{% if answer %}
+<div class="answer">Для даты {{date}} на станции {{station}} был зафиксирован следующий пассажиропоток: {{answer}}</div>
+{% if unresolved_line %}
+Нам не удалось определить точную линию, на которой расположена станция. Надеемся, что мы угадали!
+{% endif %}
+{% endif %}
+<form class="input__box" action="#" method="get" enctype="multipart/form-data">
+    <input id="text_field" class="input__field" name="text"
+           placeholder="Напишите ваш запрос по поводу пассажиропотока. Не забудьте упомянуть станцию и дату!">
+    <button id="text_button" type="submit" class="send" formmethod="get"></button>
+</form>
 
 
-    <button id="start-voice">Начать записывать звук</button>
-    <button id="pause-voice" disabled>Приостановить запись звук</button>
-    <button id="stop-voice" disabled>Закончить записывать звук</button>
-  <script>(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Recorder = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+<button id="start-voice">Начать записывать звук</button>
+<button id="pause-voice" disabled>Приостановить запись звук</button>
+<button id="stop-voice" disabled>Закончить записывать звук</button>
+<script>(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Recorder = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./recorder").Recorder;
@@ -571,9 +572,9 @@ function sendBlob(blob) {
         end = new Date().getTime();
       }
     }
-    wait(5000)
+    wait(5000);  // Way to make fetch synchronous!)
     window.location.href = '/?audio=true';
 }
-  </script>
-  </body>
+</script>
+</body>
 </html>

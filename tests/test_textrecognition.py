@@ -2,11 +2,13 @@ import unittest
 
 from recognition.text import extractor
 
+import io
+from datetime import datetime, timedelta
+
 
 class TestTextRecognition(unittest.TestCase):
 
     def setUp(self):
-        import io
         stations = io.open("tests/assets/stations.txt", mode="r", encoding="utf-8")
         testdata = io.open("tests/assets/text_testdata.txt", mode="r", encoding="utf-8")
         answerdata = io.open("tests/assets/text_answerdata.txt", mode="r", encoding="utf-8")
@@ -51,7 +53,6 @@ class TestTextRecognition(unittest.TestCase):
 class TestDateRecognition(unittest.TestCase):
 
     def setUp(self):
-        import io
         testdata = io.open("tests/assets/text_testdata.txt", mode="r", encoding="utf-8")
         answerdata = io.open("tests/assets/text_answerdata.txt", mode="r", encoding="utf-8")
         self.data = [elem.strip() for elem in testdata.readlines()]
@@ -63,6 +64,7 @@ class TestDateRecognition(unittest.TestCase):
             "Ты - робот, задача которого искать в сообщениях дату, указание на время или день недели (вчера, на следующей неделе и так далее)"
             " и выдать дату о которой идет речь В ФОРМАТЕ yyyy-mm-dd. Тебе заплатят 100 евро если ты выведешь только дату В ФОРМАТЕ YYYY-MM-DD."
             " Считай, что сегодня - 2024-04-20 а две недели назад было 2024-04-06")
+        # f"Сегодняшний день недели - {(datetime.now() - timedelta(days=1)).now().strftime('%A')}, завтра будет {datetime.now().strftime('%A')}, а вчера было {(datetime.now() - timedelta(days=2)).strftime('%A')}")
 
     def test1(self):
         self.assertEqual(extractor.extract_date(self.data[0], self.test_preset), self.answer[0])

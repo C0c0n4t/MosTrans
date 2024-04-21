@@ -1,7 +1,7 @@
 from typing import *
 
 # database
-db_files = [r"data\databases\main_database.sqlite", r"data\databases\train_database.sqlite"]
+db_files = [r"data\databases\train_database.sqlite"]
 
 model = None
 

@@ -8,16 +8,23 @@ import re
 chat = GigaChat(
     credentials='OWFmYTQ3NDItZTdmMy00ZjQ2LTk3MDMtZWRlMzIyMjRiNTUyOmFlMjgzOTZmLTIyNmQtNGNlNS05MmY0LWJlMDM4ZWRlN2RkNQ==',
     verify_ssl_certs=False)
+line_preset = (
+    "Ты - робот, задача которого искать в сообщениях названия линий Московского метро"
+    " и выдать это название. Тебе заплатят 100 евро если ты выведешь ТОЛЬКО НАЗВАНИЕ ЛИНИИ")
 station_preset = (
     "Ты - робот, задача которого искать в сообщениях названия станций Московского метро"
     " и выдать это название. Тебе заплатят 100 евро если ты выведешь ТОЛЬКО НАЗВАНИЕ СТАНЦИИ")
 date_preset = (
     "Ты - робот, задача которого искать в сообщениях дату, указание на время или день недели (вчера, на следующей неделе и так далее)"
     " и выдать дату о которой идет речь В ФОРМАТЕ yyyy-mm-dd. Тебе заплатят 100 евро если ты выведешь ТОЛЬКО ДАТУ В ФОРМАТЕ YYYY-MM-DD"
-    f" Считай, что сегодня - {datetime.now().isoformat()}, а две недели назад было {(datetime.now() - timedelta(days=14)).isoformat()}")
+    f" Считай, что сегодня - {datetime.now().isoformat()}, а две недели назад было {(datetime.now() - timedelta(days=14)).isoformat()}.")
+
+
+# f"Сегодняшний день недели - {datetime.now().strftime('%A')}, завтра будет {(datetime.now() + timedelta(days=1)).strftime('%A')}, а вчера было {(datetime.now() - timedelta(days=1)).strftime('%A')}")
 
 
 def extract_keyword_levenshtein(keywords, text):
+    """Finds best match from keywords in text using Levenshtein algorithm"""
     text = ''.join(text.split()).lower()
     min_distance = float("inf")
     min_distance_keyword = None
@@ -38,7 +45,18 @@ def extract_keyword_levenshtein(keywords, text):
     return min_distance_keyword
 
 
+def extract_line(text, preset=line_preset):
+    """Uses GigaChat to extract line from text"""
+    data = [SystemMessage(content=preset), HumanMessage(content=text)]
+    res = chat(data)
+    data.append(res)
+
+    answer = res.content
+    return answer
+
+
 def extract_station(text, preset=station_preset):
+    """Uses GigaChat to extract station from text"""
     data = [SystemMessage(content=preset), HumanMessage(content=text)]
     res = chat(data)
     data.append(res)
@@ -48,6 +66,7 @@ def extract_station(text, preset=station_preset):
 
 
 def extract_date(text, preset=date_preset, fmt="ymd"):
+    """Uses GigaChat to extract date from text"""
     data = [SystemMessage(content=preset), HumanMessage(content=text)]
     res = chat(data)
     data.append(res)

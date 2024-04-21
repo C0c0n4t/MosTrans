@@ -6,7 +6,6 @@ from sqlalchemy.engine.mock import MockConnection
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.automap import AutomapBase, automap_base
 
-
 __engines: Dict[str, MockConnection] = dict()
 databases: Dict[str, AutomapBase] = dict()
 sessions: Dict[str, Session] = dict()

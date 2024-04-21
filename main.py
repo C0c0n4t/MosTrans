@@ -7,6 +7,7 @@ from backend.routes import *
 
 # Main
 def main(argc: int, argv: List[str]):
+    """Program's starting point"""
     db_init()
 
     from backend.application import run

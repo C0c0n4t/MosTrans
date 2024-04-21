@@ -6,7 +6,6 @@ from flask import render_template, request, redirect, Response, url_for
 from recognition.text import extractor
 from recognition.speech_to_text import speech_to_text
 
-
 voice_text = ""
 
 
@@ -56,10 +55,13 @@ def index():
         if len(stations) == 1:
             station_name = stations[0].name
         else:
-            line_name = extractor.extract_keyword_levenshtein(
-                [line.name for line in sessions["train_database"].query(Line).all()], text)
+            line_name = extractor.extract_line(text)
+            if sessions["train_database"].query(Station).filter(Station.name.icontains(station_name)).first() is None:
+                line_name = extractor.extract_keyword_levenshtein(
+                    [line.name for line in sessions["train_database"].query(Line).all()], text)
             for station in stations:
-                if sessions["train_database"].query(Line).filter_by(id=station.line_id).first() == line_name:
+                found = sessions["train_database"].query(Line).filter_by(id=station.line_id).first()
+                if found and found.name == line_name:
                     station_name = station.name
                     break
             else:
@@ -80,6 +82,7 @@ def index():
 
 @application.route("/get_voice", methods=["POST"])
 def get_voice():
+    """Gets file and stores transcription in `voice_text` variable"""
     wav_file = request.files["audio"]
     wav_file.save("data/databases/recoding.wav")
 

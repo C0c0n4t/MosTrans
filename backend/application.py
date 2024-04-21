@@ -1,6 +1,5 @@
 from flask import Flask
 
-
 application = Flask(__name__, template_folder="../frontend/templates", static_folder="../frontend/static")
 application.config["SECRET_KEY"] = "MosTrans"
 
