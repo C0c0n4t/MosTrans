@@ -19,7 +19,6 @@
   <div class="main_screen">
     <div class="answer_container">
       <!-- <div class="answer">18760</div>
-      <div class="additional_info">пассажиропоток на станции Каховская 13.03.2024</div> -->
       {% if answer %}
         <div class="answer">{{answer}}</div>
         <div class="additional_info">Пассажиропоток на станции {{station}} для даты {{date}}</div>
@@ -29,45 +28,49 @@
           Нам не удалось определить точную линию, на которой расположена станция. Надеемся, что мы угадали!
         </div>
       {% endif %}
-      {% else %}
-        <div class="answer" style="font-size: 5rem;">Выберите станцию и дату</div>
-        <div class="additional_info">Также вы можете сделать текстовый запрос</div>
       {% endif %}
+      <div class="answer" style="font-size: 5rem;">Выберите станцию и дату</div>
+      <div class="additional_info">Также вы можете сделать текстовый запрос</div>
       <!-- <input class="date" placeholder="21.04.2024"></input> -->
     </div>
+    <div class="info_container">
     <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
-      <div class="info_container">
+
         <div class="stations_lines_date_container">
           <input placeholder="Линия" type="search" list="lines" class="sub_but">
           <datalist id="lines"></datalist>
           
           <input placeholder="Станция" name="station_name" type="search" list="stations" class="sub_but">
           <datalist id="stations"></datalist>
+
           <input type="date" class="date" name="date" value="2024-03-02"/>
       <button type="submit" formmethod="get" class="count">Считать</button>
         </div>
-        <!-- <form class="input__box" action="#" method="get" enctype="multipart/form-data"> -->
-        <div class="input__box">
-          <input id="text_field" class="input__field" name="text" placeholder="Напишите ваш запрос по поводу пассажиропотока. Не забудьте упомянуть станцию и дату!">
-          <button class="microphone_button"></button>
-          <script>
-            micro_pressed = false;
-            micro_button = document.getElementsByClassName("microphone_button")[0]; 
-            micro_button.setAttribute("pressed") = micro_pressed;
+
+      </form>
+      <form class="input__box" action="#" method="get" enctype="multipart/form-data">
+      <input id="text_field" class="input__field" name="text"
+             placeholder="Напишите ваш запрос по поводу пассажиропотока. Не забудьте упомянуть станцию и дату!">
+        <button id="start-voice">Начать записывать звук</button>
+        <button id="stop-voice" disabled>Закончить записывать звук</button>
+      <button id="text_button" type="submit" class="send" formmethod="get"></button>
+        <script>
+
+
+            micro_button = document.getElementById("microphone_button");
+            console.log(micro_button)
             micro_button.onclick = (el) => {
-              if (el.getAttribute("pressed") === false) {
-                document.getElementsByClassName("start-voice")[0].click();
-              }
-              else {
-                document.getElementsByClassName("stop-voice")[0].click();
-              }
+            document.getElementById("stop-voice").click();
+                document.getElementById("start-voice").click();
+                console.log("start");
             }
+            //micro_button.setAttribute("pressed", micro_pressed);
+            console.log("there");
           </script>
-          <button type="submit" class="send" formmethod="get"></button>
-        </div>
+  </form>
+      </div>
         <!-- </form> -->
       </div>
-    </form>
     <script>
       const _C = document.querySelector('.info_container'), 
       N = _C.children.length;
@@ -163,7 +166,6 @@
       }
     }
   </script>
-</div>
 <!-- {% if answer %}
 <div class="answer">Для даты {{date}} на станции {{station}} был зафиксирован следующий пассажиропоток: {{answer}}</div>
 {% if unresolved_line %}
@@ -177,9 +179,11 @@
 </form> -->
 
 
+<!--
 <button id="start-voice">Начать записывать звук</button>
+<button id="stop-voice" disabled>Закончить записывать звук</button> -->
 <button id="pause-voice" disabled>Приостановить запись звук</button>
-<button id="stop-voice" disabled>Закончить записывать звук</button>
+
 <script>(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Recorder = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
