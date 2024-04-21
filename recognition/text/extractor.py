@@ -72,9 +72,12 @@ def extract_date(text, preset=date_preset, fmt="ymd"):
     data.append(res)
 
     answer = res.content
-    search = next(re.finditer("([0-9]+)-([0-9]+)-([0-9]+)", answer))
-    if search is None:
-        return None
+    search = re.finditer("([0-9]+)-([0-9]+)-([0-9]+)", answer)
+    sentinel = object()
+    try_next = next(search, sentinel)
+    if try_next is sentinel:
+        return datetime.now().isoformat().split("-")
+    search = try_next
 
     if search.string[4] == "-":
         y = search.string[:4]
