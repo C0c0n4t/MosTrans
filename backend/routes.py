@@ -70,7 +70,6 @@ def index():
         date = extractor.extract_date(text)
         station = sessions["train_database"].query(Station).filter_by(name=station_name).first()
         answer = sessions["train_database"].query(PassengerFlow).filter_by(station_id=station.id, ymd=date).first()
-        print(text, date, station, answer)
 
         if answer is not None:
             answer = answer.count
