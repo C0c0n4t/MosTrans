@@ -1,9 +1,12 @@
 from typing import *
 
+from ai import predictor
+
 # database
 db_files = [r"data\databases\train_database.sqlite"]
 
 model = None
+predictor = predictor.Model(predictor.indexes).read_weight(open("ai/model_weights.txt"))
 
 
 def db_init():

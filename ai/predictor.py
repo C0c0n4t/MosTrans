@@ -1,5 +1,5 @@
 import sqlite3
-from sinewave import SinModel
+from ai.sinewave import SinModel
 import numpy as np
 import tensorflow as tf
 
@@ -12,7 +12,8 @@ def date_to_num(date):
 EPOCH = 1
 MAX_PASSENGER_NUM = 50000
 
-con = sqlite3.connect('../data/databases/train_database.sqlite')
+
+con = sqlite3.connect('data/databases/train_database.sqlite')
 cursor = con.cursor()
 xs, ys = [], []
 count = 0
@@ -29,6 +30,7 @@ for i in indexes:
     ys += [[x[1] / MAX_PASSENGER_NUM for x in station_data]]
 xs = dict(zip(indexes, xs))
 ys = dict(zip(indexes, ys))
+con.close()
 
 
 class Model:
@@ -52,10 +54,11 @@ class Model:
             weights = [float(w) for w in list(file.readline()[1:-2].split())]
             weights = np.array(weights)
             s.W = tf.Variable(weights)
+        return self
 
     def predict(self, station_id, date):
         x = date_to_num(date)
-        return self.sinmodels[station_id].predict(x)
+        return int(self.sinmodels[station_id].predict(x) * MAX_PASSENGER_NUM)
 
     def error_list(self, x_test, y_test):
         el = []
