@@ -93,7 +93,7 @@ textarea:focus, .sub_but:focus {
   display: flex;
   flex-direction: column;
   /* justify-content: end; */
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   align-items: center;
   /* --n: 2; */
   width: 100%;
@@ -364,6 +364,7 @@ textarea:focus, .sub_but:focus {
   display: flex;
   flex-direction: row;
   justify-content: end;
+  height: 10%;
 }
 
 .start_voice {
@@ -372,22 +373,26 @@ textarea:focus, .sub_but:focus {
   width: 5vh;
   border: 0;
 
-  aspect-ratio: 1/1;
+  aspect-ratio: 1;
+  /* aspect-ratio: 1/1; */
   background: none;
-  background-image: url('../static/start_voice.svg');
+  background-image: url('../static/start_voice_bg.svg');
+  border-radius: 50%;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.stop_voice {
+ .stop_voice{
   margin-inline: 1%;
   margin-top: .4vh;
   width: 5vh;
   border: 0;
 
-  aspect-ratio: 1/1;
+  aspect-ratio: 1;
+  /* aspect-ratio: 1/1; */
   background: none;
-  background-image: url('../static/stop_voice.svg');
+  background-image: url('../static/stop_voice_bg.svg');
+  border-radius: 50%;
   background-size: cover;
   background-repeat: no-repeat;
 }
