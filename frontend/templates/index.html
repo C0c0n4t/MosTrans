@@ -34,7 +34,7 @@
       <!-- <input class="date" placeholder="21.04.2024"></input> -->
     </div>
     <div class="info_container">
-    <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
+      <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
 
         <div class="stations_lines_date_container">
           <input id="lines_input" placeholder="Линия" type="search" list="lines" class="sub_but">
@@ -44,31 +44,32 @@
           <datalist id="stations"></datalist>
 
           <input type="date" class="date" name="date" value="2024-03-02"/>
-      <button type="submit" formmethod="get" class="count">Считать</button>
+          <button type="submit" formmethod="get" class="count">Считать</button>
         </div>
 
       </form>
       <form class="input__box" action="#" method="get" enctype="multipart/form-data">
-      <input id="text_field" class="input__field" name="text"
-             placeholder="Напишите ваш запрос по поводу пассажиропотока. Не забудьте упомянуть станцию и дату!">
-        <button id="start-voice">Начать записывать звук</button>
-        <button id="stop-voice" disabled>Закончить записывать звук</button>
-      <button id="text_button" type="submit" class="send" formmethod="get"></button>
-        <script>
-            micro_button = document.getElementById("microphone_button");
-            console.log(micro_button)
-            micro_button.onclick = (el) => {
-            document.getElementById("stop-voice").click();
-                document.getElementById("start-voice").click();
-                console.log("start");
-            }
-            //micro_button.setAttribute("pressed", micro_pressed);
-            console.log("there");
-          </script>
-  </form>
-      </div>
-        <!-- </form> -->
-      </div>
+        <input id="text_field" class="input__field" name="text"
+              placeholder="Напишите ваш запрос по поводу пассажиропотока. Не забудьте упомянуть станцию и дату!">
+          <!-- <button id="start-voice">Начать записывать звук</button>
+          <button id="stop-voice" disabled>Закончить записывать звук</button> -->
+          <!-- <button id="pause-voice" disabled>Приостановить запись звук</button> -->
+          <button id="text_button" type="submit" class="send" formmethod="get"></button>
+          <!-- <script>
+              micro_button = document.getElementById("microphone_button");
+              console.log(micro_button)
+              micro_button.onclick = (el) => {
+              document.getElementById("stop-voice").click();
+                  document.getElementById("start-voice").click();
+                  console.log("start");
+              }
+              //micro_button.setAttribute("pressed", micro_pressed);
+              console.log("there");
+          </script> -->
+        </form>
+    </div>
+          <!-- </form> -->
+  </div>
     <script>
       const _C = document.querySelector('.info_container'), 
       N = _C.children.length;
@@ -132,7 +133,7 @@
         stations_opt += '<option value="'+data['stations'][i]+'" />'; // Storing options in variable
       }
 
-      var full_lines = () => {
+      var fill_lines = () => {
         _lines_opt = '';
         line_names = Object.keys(data["lines"]);
         for (var i=0; i < line_names.length;++i) {
@@ -140,7 +141,7 @@
         }
         return _lines_opt;
       }
-      var lines_opt = full_lines()
+      var lines_opt = fill_lines()
       document.getElementById("lines").innerHTML = lines_opt;
       document.getElementById("stations").innerHTML = stations_opt;
 
@@ -197,7 +198,7 @@
           }
         }
         else {
-          lines_opt = full_lines();
+          lines_opt = fill_lines();
         }
 
         document.getElementById("lines").innerHTML = lines_opt;
@@ -222,7 +223,7 @@
 <!--
 <button id="start-voice">Начать записывать звук</button>
 <button id="stop-voice" disabled>Закончить записывать звук</button> -->
-<button id="pause-voice" disabled>Приостановить запись звук</button>
+<!-- <button id="pause-voice" disabled>Приостановить запись звук</button> -->
 
 <script>(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Recorder = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
