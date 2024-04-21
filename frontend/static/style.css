@@ -165,7 +165,7 @@ textarea:focus, .sub_but:focus {
 
   /* min-height: 87vh;
   max-height: 87vh; */
-  height: 100vh;
+  height: 110vh;
   width: 100%;
 
   box-sizing: border-box;
@@ -192,7 +192,7 @@ textarea:focus, .sub_but:focus {
 
 
   height: 50%;
-  width: 100%;
+  width: 400%;
 }
 
 .answer {
@@ -226,8 +226,12 @@ textarea:focus, .sub_but:focus {
   font-family: var(--chakra-fonts-body);
   white-space: initial;
   text-align: center;
+<<<<<<< Updated upstream
   min-width: 50vh;
   max-height: 70vh;
+=======
+  width: 100vh;
+>>>>>>> Stashed changes
   color:white;
   font-size: 3rem;
   animation: 5s anim-pop-up ease-out forwards;
@@ -330,6 +334,7 @@ textarea:focus, .sub_but:focus {
   flex-direction: column;
   overflow-y: hidden;
   overflow-x: hidden;
+  align-items: center;
 }
 
 .input__box {
