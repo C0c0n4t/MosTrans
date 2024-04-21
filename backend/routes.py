@@ -33,7 +33,10 @@ def index():
     elif "date" in str(request.query_string) and "station_name" in str(request.query_string):
         date = request.args.get('date')
         station_name = request.args.get('station_name')
+        if station_name not in [station.name for station in sessions["train_database"].query(Station).all()]:
+            station_name = "Бульвар Рокоссовского"
         station = sessions["train_database"].query(Station).filter_by(name=station_name).first()
+        date = extractor.extract_date(date)
         if date not in [pf.ymd for pf in sessions["train_database"].query(PassengerFlow).filter_by(ymd=date).all()]:
             answer = predictor.predict(station.id, date)
         else:
@@ -75,6 +78,7 @@ def index():
                 unresolved_line = True
         date = extractor.extract_date(text)
         station = sessions["train_database"].query(Station).filter_by(name=station_name).first()
+        print(date)
         if date not in [pf.ymd for pf in sessions["train_database"].query(PassengerFlow).filter_by(ymd=date).all()]:
             answer = predictor.predict(station.id, date)
         else:
