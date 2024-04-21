@@ -6,7 +6,7 @@ from flask import render_template, request, redirect, Response, url_for
 from recognition.text import extractor
 from recognition.speech_to_text import speech_to_text
 
-#from ai import predictor
+from backend.global_declarations import predictor
 
 voice_text = ""
 
