@@ -45,22 +45,13 @@ class SinModel:
                 grad = tape.gradient(loss, self.W)
                 self.W.assign_sub(learning_rate * grad)
 
-    def score(self, x_test, y_test):
+    def error(self, x_test, y_test):
         assert len(x_test) == len(y_test)
         loss = 0
         for x, y in zip(x_test, y_test):
-            loss += abs(y - self.calc(x))
-        return loss / len(x_test)
+            loss += abs(y - self.calc(x)) / y
+        return (loss / len(x_test)).numpy() / len(y_test)
 
     @property
     def weights(self):
         return self.W
-
-
-model0 = SinModel()
-model0.fit(xs[0], ys[0], epoch=30)
-print(model0.score(xs[0][80:], ys[0][80:]))
-print()
-print(model0(xs[0][90:]))
-print(ys[0][90:])
-print(model0.weights)
