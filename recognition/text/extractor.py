@@ -21,9 +21,9 @@ def extract_keyword_levenshtein(keywords, text):
     text = ''.join(text.split()).lower()
     min_distance = float("inf")
     min_distance_keyword = None
-    if "цска" in text:
+    if "цска" in text and "цска" in keywords:
         return "цска"
-    elif "вднх" in text:
+    elif "вднх" in text and "вднх" in keywords:
         return "вднх"
     for keyword in keywords:
         if keyword in ("зил", "цска", "вднх"):

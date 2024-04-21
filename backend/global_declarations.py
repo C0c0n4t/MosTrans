@@ -3,6 +3,8 @@ from typing import *
 # database
 db_files = [r"data\databases\main_database.sqlite", r"data\databases\train_database.sqlite"]
 
+model = None
+
 
 def db_init():
     """Initializes all databases"""
@@ -11,6 +13,12 @@ def db_init():
 
     from data.models import load_models
     load_models()
+
+    from huggingsound import SpeechRecognitionModel
+    global model
+    model = SpeechRecognitionModel("jonatasgrosman/wav2vec2-large-xlsr-53-russian")
+    from recognition.speech_to_text import speech_to_text
+    speech_to_text.convert_speech("tests/assets/speech.wav")
 
 
 def parse_xlsx():
