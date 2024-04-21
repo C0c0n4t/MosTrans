@@ -6,6 +6,8 @@ from flask import render_template, request, redirect, Response, url_for
 from recognition.text import extractor
 from recognition.speech_to_text import speech_to_text
 
+#from ai import predictor
+
 voice_text = ""
 
 
@@ -32,8 +34,12 @@ def index():
         date = request.args.get('date')
         station_name = request.args.get('station_name')
         station = sessions["train_database"].query(Station).filter_by(name=station_name).first()
-        answer = sessions["train_database"].query(PassengerFlow).filter_by(station_id=station.id, ymd=date).first()
-        if answer is not None:
+        if date not in [pf.ymd for pf in sessions["train_database"].query(PassengerFlow).filter_by(ymd=date).all()]:
+            answer = predictor.predict(station.id, date)
+        else:
+            answer = sessions["train_database"].query(PassengerFlow).filter_by(station_id=station.id, ymd=date).first()
+        print(date, station_name, answer, "date+station_name")
+        if answer is not None and not isinstance(answer, int):
             answer = answer.count
         return render_template("index.html", data=data, date=date, station=station_name, answer=answer,
                                unresolved_line=False)
@@ -69,10 +75,13 @@ def index():
                 unresolved_line = True
         date = extractor.extract_date(text)
         station = sessions["train_database"].query(Station).filter_by(name=station_name).first()
-        answer = sessions["train_database"].query(PassengerFlow).filter_by(station_id=station.id, ymd=date).first()
+        if date not in [pf.ymd for pf in sessions["train_database"].query(PassengerFlow).filter_by(ymd=date).all()]:
+            answer = predictor.predict(station.id, date)
+        else:
+            answer = sessions["train_database"].query(PassengerFlow).filter_by(station_id=station.id, ymd=date).first()
 
         print(date, station_name, answer)
-        if answer is not None:
+        if answer is not None and not isinstance(answer, int):
             answer = answer.count
         return render_template("index.html", data=data, date=date, station=station_name, answer=answer,
                                unresolved_line=unresolved_line)
