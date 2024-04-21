@@ -38,7 +38,7 @@
     <form action="#" method="get" enctype="multipart/form-data" class="sub__form">
       <div class="info_container">
         <div class="stations_lines_date_container">
-          <input placeholder="Линия" type="search" list="lines" class="sub_but">
+          <input id="lines_input" placeholder="Линия" type="search" list="lines" class="sub_but">
           <datalist id="lines"></datalist>
           
           <input placeholder="Станция" name="station_name" type="search" list="stations" class="sub_but">
@@ -121,6 +121,7 @@
       _C.addEventListener('mouseup', move, false);
       _C.addEventListener('touchend', move, false);
     </script>
+
     <script>
       window.onload = function() {
       var stations_opt=''; // variable to store the options
@@ -130,10 +131,15 @@
         stations_opt += '<option value="'+data['stations'][i]+'" />'; // Storing options in variable
       }
 
-      line_names = Object.keys(data["lines"]);
-      for (var i=0; i < line_names.length;++i) {
-        lines_opt += '<option value="'+line_names[i]+'" />'; // Storing options in variable
+      var full_lines = () => {
+        _lines_opt = '';
+        line_names = Object.keys(data["lines"]);
+        for (var i=0; i < line_names.length;++i) {
+          _lines_opt += '<option value="'+line_names[i]+'" />'; // Storing options in variable
+        }
+        return _lines_opt;
       }
+      var lines_opt = full_lines()
       document.getElementById("lines").innerHTML = lines_opt;
       document.getElementById("stations").innerHTML = stations_opt;
 
@@ -160,6 +166,42 @@
           }
         }
         document.getElementById("stations").innerHTML = stations_opt;
+      }
+      
+      document.getElementsByClassName("sub_but")[1].onchange = (event) => {
+        input_st = event.target.value;
+        is_in = () => {
+          for (var i=0; i < data['stations'].length;++i) {
+            if (input_st == data['stations'][i]) {
+              return true;
+            }
+          }
+          return false;
+        }
+        
+        line_name = "";
+        if (is_in()) {
+          flag = false;
+          for (var key in data['lines']) {
+            for (var i=0; i < data['lines'][key].length;++i) {
+              if (data['lines'][key][i] == input_st) {
+                line_name = key;
+                lines_opt = [];
+                flag = true;
+                break;
+              }
+            }
+            if (flag)
+              break;
+          }
+        }
+        else {
+          lines_opt = full_lines();
+        }
+
+        document.getElementById("lines").innerHTML = lines_opt;
+        if (line_name != '')
+          document.getElementById("lines_input").value = line_name;
       }
     }
   </script>
