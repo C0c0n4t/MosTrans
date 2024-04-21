@@ -71,6 +71,7 @@ def index():
         station = sessions["train_database"].query(Station).filter_by(name=station_name).first()
         answer = sessions["train_database"].query(PassengerFlow).filter_by(station_id=station.id, ymd=date).first()
 
+        print(date, station_name, answer)
         if answer is not None:
             answer = answer.count
         return render_template("index.html", data=data, date=date, station=station_name, answer=answer,
